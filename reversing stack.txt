@@ -1,0 +1,587 @@
+Reversing a Stack
+The objective of this article is to explore various approaches that can be used to reverse the given stack (stack is a linear data structure where insertion and deletion are made at the same end).
+
+Various approaches to reverse a stack.
+
+1)Naive Approach: The naive approach is to keep on removing the top element from the given stack and pushing it to a new stack until the given stack becomes empty.
+
+Algorithm
+
+Step 1: Remove the top element from the given stack.
+Step 2: Push the removed element to a new stack.
+Step 3: if the given stack is empty, then return the new stack.
+Step 4: if the given stack is not empty then repeat step 1 and step 2 until the stack becomes empty.
+Complexity:
+
+The Time complexity of this approach is O(n) because we access each element of stack exactly once.
+The Space complexity of this approach is also O(n) because we need an extra stack of size n (no of elements in the given stack) to store the elements of the given stack.
+Example
+
+
+Let us condier that the given stack has elements from 1 to 6 and 6 is the topmost element
+
+when the stack is displayed from top the stack looks like
+ 6 5 4 3 2 1
+
+ Now let us take a new empty stack and push the last element from given stack to new stack
+
+After step 1 the stack looks like
+ given stack -> 5 4 3 2 1
+ new stack -> 6
+ 
+ lets repeat the same procedure until given stack becomes empty
+ 
+ after step 2 the stack looks like
+ given stack -> 4 3 2 1
+ new stack -> 5 6
+ 
+ after step 3 the stack looks like
+ given stack -> 3 2 1
+ new stack -> 4 5 6
+ 
+ after step 4 the stack looks like
+ given stack -> 2 1
+ new stack -> 3 4 5 6
+ 
+ after step 5 the stack looks like
+ given stack -> 1
+ new stack -> 2 3 4 5 6
+ 
+ after step 4 the stack looks like
+ given stack -> 
+ new stack -> 1 2 3 4 5 6
+ 
+ when given stack becomes empty, the new stack is the reversed stack of given stack.
+ 
+Implementation of the above approach.
+C
+C++
+Java
+C
+
+#include <stdio.h>
+#include <stdbool.h>
+
+
+typedef struct Stack
+{
+  int a[1000000];
+  int top;
+} Stack;
+
+
+void push (int x, Stack * b)
+{
+  (*b).top=(*b).top+1;
+  (*b).a[(*b).top] = x;
+}
+
+
+int pop (Stack * b)
+{
+  if ((*b).top != -1)
+    {
+      int temp=(*b).a[(*b).top];
+      (*b).top=(*b).top - 1;
+      return temp;
+    }
+}
+
+
+bool isempty (Stack *b)
+{
+  if ((*b).top == -1)
+    {
+      return true;
+    }
+  return false;
+}
+
+
+void display (Stack *b)
+{
+  for (int i = (*b).top; i >= 0; i--)
+    {
+      printf("%d ",(*b).a[i]); 
+    }
+}
+
+
+int main ()
+{
+//creating stack which has to be reversed
+Stack given_stack;//creating a stack
+given_stack.top = -1;//assigning top value -1
+push (1, &given_stack);
+push (2, &given_stack);
+push (3, &given_stack);
+push (4, &given_stack);
+push (5, &given_stack);
+push (6, &given_stack);
+
+
+//displaying the given stack
+//Elements which are added recently is displayed first
+printf("The given stack from top element is :\n");
+display (&given_stack);
+printf("\n");
+
+
+/*creating a stack which will store the values of reversed given_stack*/
+Stack reversed_stack;
+reversed_stack.top=-1;
+while (!isempty (&given_stack))
+   {
+     int x = pop (&given_stack);//removing the top element from given stack
+     push (x,&reversed_stack);//pushing the removed element to new stack.
+    }
+ 
+
+//displaying the reversed stack
+//Elements which are added recently is displayed first
+printf("The reversed stack from top element is :\n");
+display (&reversed_stack);
+}
+   
+C++
+    
+#include <iostream>
+using namespace std;
+
+
+//defining stack class
+class Stack{
+    int a[1000000];
+    int top=-1;
+
+
+public:
+    void push(int x){
+        a[++top]=x;
+    }
+
+
+    int pop(){
+        if(top!=-1){
+            return a[top--];
+        }
+    }
+
+
+    bool isempty(){
+        if(top==-1){
+            return true;
+        }
+            return false;
+    }
+
+
+    void display(){
+        for(int i=top;i>=0;i--){
+            cout<<a[i]<<" ";
+        }
+    }
+};
+
+
+int main(){
+//creating stack which has to be reversed
+Stack given_stack;//creating a stack
+given_stack.push(1);
+given_stack.push(2);
+given_stack.push(3);
+given_stack.push(4);
+given_stack.push(5);
+given_stack.push(6);
+
+
+//displaying the given stack
+//Elements which are added recently is displayed first
+cout<<"The given stack from top element is :\n";
+given_stack.display();
+cout<<endl;
+
+
+/*creating a stack which will store the values of reversed given_stack*/
+Stack reversed_stack;
+while(!given_stack.isempty()){
+    int x=given_stack.pop();//removing the top element from given stack
+    reversed_stack.push(x);//pushing the removed element to new stack.
+}   
+
+
+//displaying the reversed stack
+//Elements which are added recently is displayed first
+cout<<"The reversed stack from top element is :\n";
+reversed_stack.display();
+}
+Java
+    
+//defining stack class
+class Stack{
+    int a[]=new int[1000000];
+    int top=-1;
+
+
+public void push(int x){
+        a[++top]=x;
+    }
+
+
+ public int pop(){
+        if(top!=-1){
+            return a[top--];
+        }
+        return -1;
+    }
+
+
+ public boolean isempty(){
+        if(top==-1){
+            return true;
+        }
+            return false;
+    }
+
+
+ public void display(){
+        for(int i=top;i>=0;i--){
+            System.out.print(a[i]+" ");
+        }
+    }
+};
+
+
+public class Main{
+public static void main(String args[]){
+//creating stack which has to be reversed
+Stack given_stack=new Stack();//creating a stack
+given_stack.push(1);
+given_stack.push(2);
+given_stack.push(3);
+given_stack.push(4);
+given_stack.push(5);
+given_stack.push(6);
+
+
+//displaying the given stack
+//Elements which are added recently is displayed first
+System.out.println("The given stack from top element is :\n");
+given_stack.display();
+System.out.println("");
+
+
+/*creating a stack which will store the values of reversed given_stack*/
+Stack reversed_stack=new Stack();
+while(!given_stack.isempty()){
+    int x=given_stack.pop();//removing the top element from given stack
+    reversed_stack.push(x);//pushing the removed element to new stack.
+}   
+
+
+//displaying the reversed stack
+//Elements which are added recently is displayed first
+System.out.println("The reversed stack from top element is :\n");
+reversed_stack.display();
+}
+};
+Output
+
+The given stack from top element is :
+6 5 4 3 2 1
+The reversed stack from top element is :
+1 2 3 4 5 6   
+2)Reverse a stack using recursion: In this approach we are going to use the concept of recursion to reverse the given stack. In this approach We will remove elements present in the stack using pop() and store them in a function call, When the stack becomes empty we add the stored element in the function call to the bottom of the stack.
+
+Algorithm
+
+Step 1: Remove the top element from the stack using pop().
+Step 2: Insert the removed element to the function call.
+Step 3: If stack is not empty repeat step 1 and step 2 until stack becomes empty.
+Step 4: Insert the elements to the bottom of the stack while moving back in the recursion tree.
+Complexity:
+
+The Time complexity of this approach is O(n2) because for each element in the stack we are performing insert at bottom which takes O(n) operations.
+The Space complexity of this approach is also O(n) because we store n (no of elements in the given stack) elements in the function call.
+Implementation of the above approach.
+C
+C++
+Java
+C
+
+#include <stdio.h>
+#include <stdbool.h>
+
+
+typedef struct Stack
+{
+  int a[1000000];
+  int top;
+} Stack;
+
+
+void push (int x, Stack * b)
+{
+  (*b).top=(*b).top+1;
+  (*b).a[(*b).top] = x;
+}
+
+
+int pop (Stack * b)
+{
+  if ((*b).top != -1)
+    {
+      int temp=(*b).a[(*b).top];
+      (*b).top=(*b).top - 1;
+      return temp;
+    }
+}
+
+
+bool isempty (Stack *b)
+{
+  if ((*b).top == -1)
+    {
+      return true;
+    }
+  return false;
+}
+
+
+void insert_at_bottom(int x,Stack *b)
+{
+    if((*b).top== -1)
+    push(x,b);
+    else
+    {       
+        int cur_ele = pop(b);//remove top element from stack
+        insert_at_bottom(x,b);
+        push(cur_ele,b);
+    }
+}
+
+
+void reverse_stack(Stack *b)
+{
+    if((*b).top!=-1)//while stack is not empty
+    {
+        char x = pop(b);
+        reverse_stack(b);
+        insert_at_bottom(x,b);
+    }
+}
+
+
+void display (Stack *b)
+{
+  for (int i = (*b).top; i >= 0; i--)
+    {
+      printf("%d ",(*b).a[i]); 
+    }
+}
+
+
+int main ()
+{
+//creating stack which has to be reversed
+Stack given_stack;//creating a stack
+given_stack.top = -1;//assigning top value -1
+push (1, &given_stack);
+push (2, &given_stack);
+push (3, &given_stack);
+push (4, &given_stack);
+push (5, &given_stack);
+push (6, &given_stack);
+
+
+//displaying the given stack
+//Elements which are added recently is displayed first
+printf("The given stack from top element is :\n");
+display (&given_stack);
+printf("\n");
+
+
+reverse_stack(&given_stack);
+printf("The reversed stack from top element is :\n");
+display(&given_stack);
+}
+   
+C++
+    
+#include <iostream>
+using namespace std;
+
+
+//defining stack class
+class Stack{
+    int a[1000000];
+    int top=-1;
+
+
+public:
+    void push(int x){
+        a[++top]=x;
+    }
+
+
+    int pop(){
+        if(top!=-1){
+            return a[top--];
+        }
+    }
+
+
+    bool isempty(){
+        if(top==-1){
+            return true;
+        }
+            return false;
+    }
+
+
+void insert_at_bottom(int x)
+{
+    if(top== -1)
+    push(x);
+    else
+    {       
+        int cur_ele = pop();//remove top element from stack
+        insert_at_bottom(x);
+        push(cur_ele);
+    }
+}
+
+
+void reverse_stack()
+{
+    if(top!=-1)//while stack is not empty
+    {
+        char x = pop();
+        reverse_stack();
+        insert_at_bottom(x);
+    }
+}
+
+
+    void display(){
+        for(int i=top;i>=0;i--){
+            cout<<a[i]<<" ";
+        }
+    }
+};
+
+
+int main(){
+//creating stack which has to be reversed
+Stack given_stack;//creating a stack
+given_stack.push(1);
+given_stack.push(2);
+given_stack.push(3);
+given_stack.push(4);
+given_stack.push(5);
+given_stack.push(6);
+
+
+//displaying the given stack
+//Elements which are added recently is displayed first
+cout<<"The given stack from top element is :\n";
+given_stack.display();
+cout<<endl;
+
+
+given_stack.reverse_stack();
+cout<<"The reversed stack from top element is :"<<endl;
+given_stack.display();
+}
+Java
+    
+//defining stack class
+class Stack{
+    int a[]=new int[1000000];
+    int top=-1;
+
+
+public void push(int x){
+        a[++top]=x;
+    }
+
+
+ public int pop(){
+        if(top!=-1){
+            return a[top--];
+        }
+        return -1;
+    }
+
+
+ public boolean isempty(){
+        if(top==-1){
+            return true;
+        }
+            return false;
+    }
+
+
+public void insert_at_bottom(int x)
+{
+    if(top== -1)
+    push(x);
+    else
+    {       
+        int cur_ele = pop();//remove top element from stack
+        insert_at_bottom(x);
+        push(cur_ele);
+    }
+}
+
+
+public void reverse_stack()
+{
+    if(top!=-1)//while stack is not empty
+    {
+        int x = pop();
+        reverse_stack();
+        insert_at_bottom(x);
+    }
+}
+
+
+ public void display(){
+        for(int i=top;i>=0;i--){
+            System.out.print(a[i]+" ");
+        }
+    }
+};
+
+
+public class Main{
+public static void main(String args[]){
+//creating stack which has to be reversed
+Stack given_stack=new Stack();//creating a stack
+given_stack.push(1);
+given_stack.push(2);
+given_stack.push(3);
+given_stack.push(4);
+given_stack.push(5);
+given_stack.push(6);
+
+
+//displaying the given stack
+//Elements which are added recently is displayed first
+System.out.println("The given stack from top element is :\n");
+given_stack.display();
+System.out.println("");
+
+
+given_stack.reverse_stack();
+System.out.println("The reversed stack from top element is :\n");
+given_stack.display();
+System.out.println("");
+}
+};
+Output
+
+The given stack from top element is :
+6 5 4 3 2 1
+The reversed stack from top element is :
+1 2 3 4 5 6   
