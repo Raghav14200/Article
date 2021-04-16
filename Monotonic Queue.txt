@@ -1,0 +1,639 @@
+Monotonic Queue
+What do you mean by monotonic queue?
+Monotonic queue is a data structure where the data is entirely in non-decreasing order or entirely in non-increasing order. It is generally used for optimizing dynamic programming techniques.
+Monotonic queues can be used to solve problems that require us to find the greater/min/max till a particular window.
+
+Implementing non-increasing and non-decreasing monotonic queues.
+In monotonic queues, we generally define three functions called push, pop, and peek. The push and pop function implementation in the monotonic queue is different from the general queue.
+
+implementation of non-increasing monotonic queues.
+In a non-increasing monotonic queue if the item to be inserted is greater than the top element then the top element is removed and this procedure is repeated until the monotonic queue becomes empty or the top element is greater than the item to be inserted.
+
+C++
+Java
+C++
+
+//structure of montonic queue.
+class MonotonicQueue {
+     int monotonic_queue[10000];//array to store data.
+     int top=-1;//pointer which points to top of the array.
+
+  
+public:
+
+
+ // add element n to the end of the line
+ void push(int n){
+      while(top!=-1 && n>=monotonic_queue[top]){
+            pop();
+      }
+      monotonic_queue[++top]=n;
+   }
+
+   
+// returns the min value in the current queue
+   int peek(){
+        return monotonic_queue[top];
+    }
+
+
+// remove the top element.
+int pop(){
+        return monotonic_queue[top--];
+   }
+};
+Java
+
+//structure of montonic queue.
+class MonotonicQueue {
+     int monotonic_queue[]=new int[10000];//array to store data.
+     int top=-1;//pointer which points to top of the array.
+
+
+ // add element n to the end of the line
+ public void push(int n){
+      while(top!=-1 && n>=monotonic_queue[top]){
+            pop();
+      }
+      monotonic_queue[++top]=n;
+   }
+
+   
+// returns the min value in the current queue
+public int peek(){
+        return monotonic_queue[top];
+    }
+
+
+// remove the top element.
+public int pop(){
+        return monotonic_queue[top--];
+   }
+};
+implementation of non-decreasing monotonic queues.
+In a non-decreasing monotonic queue if the item to be inserted is smaller than the top element then the top element is removed and this procedure is repeated until the monotonic queue becomes empty or the top element is smaller than the item to be inserted.
+
+C++
+Java
+C++
+
+//structure of montonic queue.
+class MonotonicQueue {
+     int monotonic_queue[10000];//array to store data.
+     int top=-1;//pointer which points to top of the array.
+
+  
+public:
+
+
+ // add element n to the end of the line
+ void push(int n){
+      while(top!=-1 && n<=monotonic_queue[top]){
+            pop();
+      }
+      monotonic_queue[++top]=n;
+   }
+
+   
+// returns the max value in the current queue
+   int peek(){
+        return monotonic_queue[top];
+    }
+
+
+// remove the top element.
+int pop(){
+        return monotonic_queue[top--];
+   }
+};
+Java
+
+//structure of montonic queue.
+class MonotonicQueue {
+     int monotonic_queue[]=new int[10000];//array to store data.
+     int top=-1;//pointer which points to top of the array.
+
+
+ // add element n to the end of the line
+ public void push(int n){
+      while(top!=-1 && n<=monotonic_queue[top]){
+            pop();
+      }
+      monotonic_queue[++top]=n;
+   }
+
+   
+// returns the max value in the current queue
+public int peek(){
+        return monotonic_queue[top];
+    }
+
+
+// remove the top element.
+public int pop(){
+        return monotonic_queue[top--];
+   }
+};
+Example
+
+Let us assume that we need to insert all elements of array q into a monotonic queue where q contains
+elements 5,3,4,8,6 and 9
+
+q is being inserted into a non-decreasing monotonic queue
+
+q -> 5 3 4 7 8 6
+monotonic queue -> empty
+
+when 5 is inserted into a non-decreasing monotonic queue.
+monotonic queue -> 5
+
+when 3 is inserted into a non-decreasing monotonic queue.
+monotonic queue -> 3
+Since 3 is smaller than 5, 5 is removed from the queue and 3 is inserted into the monotonic queue.
+
+when 4 is inserted into a non-decreasing monotonic queue.
+monotonic queue -> 3 4
+4 is inserted into the monotonic queue.
+
+when 7 is inserted into a non-decreasing monotonic queue.
+monotonic queue -> 3 4 7
+7 is inserted into the monotonic queue.
+
+when 8 is inserted into a non-decreasing monotonic queue.
+monotonic queue -> 3 4 7 8
+8 is inserted into the monotonic queue.
+
+when 6 is inserted into a non-decreasing monotonic queue.
+monotonic queue -> 3 4 6
+Since 6 is smaller than 7 and 8,7 and 8 is removed from the queue and 6 is inserted into the monotonic queue.
+
+q is being inserted into a non-increasing monotonic queue.
+
+q -> 5 3 4 7 8 6
+monotonic queue -> empty
+
+When 5 is inserted into a non-increasing monotonic queue.
+monotonic queue -> 5
+5 is inserted into the monotonic queue.
+
+When 3 is inserted into a non-increasing monotonic queue.
+monotonic queue -> 5 3
+3 is inserted into the monotonic queue.
+
+When 4 is inserted into a non-increasing monotonic queue.
+monotonic queue -> 5 4
+Since 4 is greater than 3, 3 is removed and 4 is inserted into the monotonic queue.
+
+When 7 is inserted into a non-increasing monotonic queue.
+monotonic queue -> 7
+Since 7 is greater than 5 and 4, 5 and 4 is removed and 7 is inserted into the monotonic queue.
+
+When 8 is inserted into a non-increasing monotonic queue.
+monotonic queue -> 8
+Since 8 is greater than 7, 7 is removed and 8 is inserted into the monotonic queue.
+
+When 6 is inserted into a non-increasing monotonic queue.
+monotonic queue -> 8 6
+6 is inserted into the monotonic queue.
+
+Time Complexity and Space Complexity.
+The time Complexity of the monotonic queue is O(n) because we access each element at most 2 times, once when it is being inserted into the monotonic queue and the other being when it is being removed from the queue.
+The space Complexity of the monotonic queue is O(n) because we will store at most n elements in the monotonic queue.
+Problems that can be solved using monotonic queue.
+In this article, we will discuss two problems that can be solved using monotonic queue.
+1)Daily Temperatures problem
+2) Largest Rectangle in Histogram
+
+Daily Temperatures problem.
+In this problem, we are given a list of daily temperature T. We need to find how many days we have to wait until a warmer day for each day in the list. If there is no warmer day after that day then return 0.
+
+Example
+
+Let us consider that we are given an array that contains 73, 74, 75, 71, 69, 72, 76, 73 as its elements.
+
+Array -> 73 74 75 71 69 72 76 73
+
+Basically what we need to do is to find the first element which is
+greater than the current element to the right of the current element. 
+
+It can be achieved by using two for loops that loop from index 0 to size - 2 in the first loop 
+and index current element + 1 to size in the second loop and if we get any element which
+has value greater than the current element we will store it in the new array at the same index as that 
+of the current element.
+
+The time complexity of this approach is O(n2) since it uses two for loops.
+
+We can optimize this solution to O(n) using monotonic queue.
+
+In this approach, we will be using non-increasing monotonic implementation.
+
+We will loop the array from last to first and insert the elements into the monotonic queue.
+
+Array -> 73 74 75 71 69 72 76 73.
+monotonic queue -> empty.
+
+insert 73 into the monotonic queue
+monotonic queue -> 73
+Since there is no element present before 73 
+therefore there is no element to the right of 73 that is greater than 73.
+
+insert 76 into the monotonic queue
+monotonic queue -> 76
+since 76 is greater than 73, therefore 73 is removed and 76 is inserted. 
+Since there is no element present before 76 
+therefore there is no element to the right of 76 that is greater than 76.
+
+insert 72 into the monotonic queue
+monotonic queue -> 76 72
+72 is inserted into the monotonic queue
+Since 76 is present before 72 therefore 76 is the first element to the right of 72 that is greater than 72.
+Since the Index of 76 is 6 and the Index of 72 is 5 in array 
+so we need to wait 1 (6 - 5) days to get a warmer day for 72.
+
+insert 69 into the monotonic queue
+monotonic queue -> 76 72 69
+69 is inserted into the monotonic queue
+Since 72 is present before 69 therefore 72 is the first element to the right of 69 that is greater than 69.
+Since the Index of 72 is 5 and the Index of 69 is 4 in array 
+so we need to wait 1 (5 - 4) days to get a warmer day for 69.
+
+insert 71 into the monotonic queue
+monotonic queue -> 76 72 71
+since 71 is greater than 69, therefore 69 is removed and 71 is inserted. 
+Since 72 is present before 71 therefore 72 is the first element to the right of 71 that is greater than 71.
+Since the Index of 72 is 5 and the Index of 71 is 3 in array 
+so we need to wait 2 (5 - 3) days to get a warmer day for 71.
+
+insert 75 into the monotonic queue
+monotonic queue -> 76 75
+since 75 is greater than 71 and 72, therefore 71 and 72 are removed and 75 is inserted. 
+Since 76 is present before 71 therefore 76 is the first element to the right of 75 that is greater than 75.
+Since the Index of 76 is 6 and the Index of 75 is 2 in array 
+so we need to wait 4 (6 - 2) days to get a warmer day for 75.
+
+insert 74 into the monotonic queue
+monotonic queue -> 76 75 74
+74 is inserted into the queue.
+Since 75 is present before 74 therefore 75 is the first element to the right of 74 that is greater than 74.
+Since the Index of 75 is 2 and the Index of 74 is 1 in array 
+so we need to wait 1 (2 - 1) days to get a warmer day for 74.
+
+insert 73 into the monotonic queue
+monotonic queue -> 76 75 74 73
+73 is inserted into the queue.
+Since 74 is present before 73 therefore 74 is the first element to the right of 73 that is greater than 73.
+Since the Index of 74 is 1 and the Index of 73 is 0 in array 
+so we need to wait 1 (1 - 0) days to get a warmer day for 73.
+
+So the final answer will be 1 1 4 2 1 1 0 0
+
+Time Complexity and Space Complexity.
+The time complexity of monotonic queue is O(n) therefore this approach will also take O(n) time.
+The space Complexity of the monotonic queue is O(n) because we will store at most n elements in the monotonic queue.
+Implementing Daily Temperatures problem.
+C++
+C++
+
+#include<iostream>
+#include<vector>
+#include<algorithm>
+
+
+using namespace std;
+
+
+//structure of montonic queue.
+class MonotonicQueue {
+
+
+     int monotonic_queue[10000];//array to store data.
+     int index[10000];//stores the index of element in the given array
+     int top=-1;//pointer which points to top of the array.
+
+
+public:
+
+
+/* add element n to the end of the line and returns how many days the element needs to
+wait until warmer day.*/
+int push(int n,int ind){
+    while(top!=-1 && n>=monotonic_queue[top]){
+           pop();
+      }
+      monotonic_queue[++top]=n;
+      index[top]=ind;
+    if(top==0){  // if element was empty before inserting the current item.
+         return 0;
+     }else{
+         return index[top-1]-ind;
+     }
+   }
+  
+ 
+// returns the min value in the current queue
+   int peek(){
+        return monotonic_queue[top];
+    }
+
+
+// remove the top element.
+int pop(){
+        return monotonic_queue[top--];
+   }
+};
+
+
+//function that returns the solution of the problem.
+vector<int> dailyTemperatures(vector<int> T) {
+        MonotonicQueue a;
+        vector<int> ind;
+        for(int i=T.size()-1;i>=0;i--){
+            ind.push_back(a.push(T[i],i));
+        }
+        reverse(ind.begin(),ind.end());
+        return ind;
+    }
+
+
+int main(){
+    vector<int> T{73,74,75,71,69,72,76,73};
+    vector<int> solution=dailyTemperatures(T);
+    for(auto x:solution){
+            cout<<x<<" ";
+     }
+}
+Output
+
+1 1 4 2 1 1 0 0 
+Largest Rectangle in Histogram.
+In this problem, we are given an array of integers that represent the bar heights, and the width of each bar is 1. Our task is to find the maximum rectangle area possible in this histogram.
+
+Example
+
+Let us consider that we are given an array that contains 2, 1, 5, 6, 2, 3 as its elements.
+
+Array -> 2 1 5 6 2 3
+
+In this approach, we are going to find the maximum rectangle that can be formed for 
+each element of the array and the maximum rectangle out of all those rectangles is our answer.
+
+The maximum rectangle that is possible for an element can be found by finding the index of first 
+smaller element to the left and incrementing by 1 and finding the index of first smaller
+element to the right and decrementing by 1.By taking the difference between these two and 
+incrementing by one we get the width of the maximum rectangle possible for that element.
+
+If there is no smaller element to the left then the width of the maximum rectangle is
+the index of the first smaller element to the right.
+
+If there is no smaller element to the right then the width of the maximum rectangle is 
+size - the index of the first smaller element to the left.
+
+The maximum rectangle that can be formed by an element is its value multiplied by 
+the width of the rectangle.
+
+To solve this problem we are going to use two non-decreasing monotonic queues,
+One for storing the smallest element to the right of the element and the 
+other for storing the smallest element to the left of the element.
+
+The monotonic queue that stores the index of the smallest element to the right - 1.
+
+we are going to loop from last to first
+Array -> 2 1 5 6 2 3
+monotonic queue -> empty.
+
+insert 3 into the monotonic queue
+monotonic queue -> 3
+3 is inserted into the monotonic queue
+Since nothing is present before 3 therefore there is no element to the right of 3 that is smaller than 3.
+
+insert 2 into the monotonic queue
+monotonic queue -> 2
+2 is smaller than 3, therefore 3 is removed and 2 is inserted.
+Since nothing is present before 2, therefore there is no element to the right of 3 that is smaller than 3.
+
+insert 6 into the monotonic queue
+monotonic queue -> 2 6
+6 is inserted into the monotonic queue
+Since 2 is present before 6, therefore 2 is the first smaller element to the 
+right of 6 that is smaller than 6.
+The index of 2 is 4 so we store 3 (4 - 1)
+
+insert 5 into the monotonic queue
+monotonic queue -> 2 5
+5 is smaller than 6, therefore 6 is removed and 5 is inserted.
+Since 2 is present before 5, therefore 2 is the first smaller element to the 
+right of 6 that is smaller than 5.
+The index of 2 is 4 so we store 3 (4 - 1)
+
+insert 1 into the monotonic queue
+monotonic queue -> 1
+1 is smaller than 2 and 5, therefore 2 and 5 are removed and 1 is inserted.
+Since nothing is present before 1, therefore there is no element to the right of 1 that is smaller than 1.
+
+insert 2 into the monotonic queue
+monotonic queue -> 1 2
+2 is inserted into the monotonic queue
+Since 1 is present before 2, therefore 1 is the first smaller element to the 
+right of 2 that is smaller than 2.
+The index of 1 is 1 so we store 0 (1 - 1)
+
+The monotonic queue that stores the index of the smallest element to the left + 1.
+
+We are going to loop from first to last.
+Array -> 2 1 5 6 2 3
+monotonic queue -> empty.
+
+insert 2 into the monotonic queue
+monotonic queue -> 2
+2 is inserted into the monotonic queue
+Since nothing is present before 2, therefore there is no element to the left of 2 that is smaller than 2.
+
+insert 1 into the monotonic queue
+monotonic queue -> 1
+1 is smaller than 2, therefore 2 is removed and 1 is inserted.
+Since nothing is present before 1, therefore there is no element to the left of 1 that is smaller than 1.
+
+insert 5 into the monotonic queue
+monotonic queue -> 1 5
+5 is inserted into the queue.
+Since 1 is present before 5, therefore 1 is the first smaller element to the 
+left of 5 that is smaller than 5.
+The index of 1 is 1 so we store 2 (1 + 1)
+
+insert 6 into the monotonic queue
+monotonic queue -> 1 5 6
+6 is inserted into the queue.
+Since 5 is present before 6, therefore 5 is the first smaller element to the 
+left of 6 that is smaller than 6.
+The index of 5 is 2 so we store 3 (2 + 1)
+
+insert 2 into the monotonic queue
+monotonic queue -> 1 2
+Since 2 is smaller than 6 and 5, therefore 6 and 5 are removed and 2 is inserted into the monotonic queue
+Since 1 is present before 2, therefore 1 is the first smaller element to the 
+left of 2 that is smaller than 2.
+The index of 1 is 1 so we store 2 (1 + 1)
+
+insert 3 into the monotonic queue
+monotonic queue -> 1 2 3
+3 is inserted into the queue.
+Since 2 is present before 3, therefore 2 is the first smaller element to the 
+left of 3 that is smaller than 3.
+The index of 2 is 4 so we store 5 (4 + 1).
+
+Maximum Rectangle of each element.
+
+Loop from first to last.
+Maximum Rectangle of 2.
+Since there is no smaller element to the left of 2 the width of
+the maximum rectangle is the smaller element to right.
+The smaller element to right is 0 + 1 = 1
+The width of the maximum rectangle of element 2 is 1.
+The Maximum rectangle of 2 that can be found is 1*2 =2.
+
+Maximum Rectangle of 1.
+Since there is no smaller element to the left and right of 1 the width of
+the maximum rectangle is 6 (size of the array).
+The Maximum rectangle of 1 that can be found is 6*1 =6.
+
+Maximum Rectangle of 5.
+The width of the maximum rectangle of  5 is the difference of smaller element to the right - 1 
+and smaller element to the left + 1 + 1 
+The width of the maximum rectangle of 5 is 2 (3 - 2 + 1)  
+The Maximum rectangle of 5 that can be found is 2*5 =10.
+
+Maximum Rectangle of 6.
+The width of the maximum rectangle of 6 is the difference of smaller element to the right - 1 
+and smaller element to the left + 1 + 1 
+The width of the maximum rectangle of 6 is 1 (3 - 3 + 1)  
+The Maximum rectangle of 6 that can be found is 1*6 =6.
+
+Maximum Rectangle of 2.
+Since there is no smaller element to the right of 2 the width of 
+the rectangle is size - smaller element to the left + 1. 
+The width of the maximum rectangle of 2 is 4 (6 - 2)  
+The Maximum rectangle of 2 that can be found is 4*2 =8.
+
+Maximum Rectangle of 3.
+Since there is no smaller element to the right of 3 the width of 
+the rectangle is size - smaller element to the left + 1. 
+The width of the maximum rectangle of 3 is 1 (6 - 5)  
+The Maximum rectangle of 3 that can be found is 1*3 =3.
+
+The maximum area of the rectangle out of all these rectangles is 10.
+So our final answer is 10.
+Time Complexity and Space Complexity.
+The time complexity of monotonic queue is O(n).In this approach, we use monotonic queue twice, therefore the no of operations is 2n but the time complexity remains O(n).
+The space Complexity of the monotonic queue is O(n) because we will store at most n elements in the monotonic queue.
+Implementing Largest Rectangle in Histogram.
+C++
+C++
+
+#include<iostream>
+#include<vector>
+#include<algorithm>
+
+
+using namespace std;
+
+
+//structure of montonic queue.
+class MonotonicQueue {
+
+
+     int monotonic_queue[10000];//array to store data.
+     int index[10000];//stores the index of element in the given array
+     int top=-1;//pointer which points to top of the array.
+
+
+public:
+
+
+/* add element n to the end of the line and returns how many days the element needs to
+wait until warmer day.*/
+int push(int n,int ind){
+    while(top!=-1 && n<=monotonic_queue[top]){
+           pop();
+      }
+      monotonic_queue[++top]=n;
+      index[top]=ind;
+    if(top==0){  // if element was empty before inserting the current item.
+         return -1;
+     }else{
+         return index[top-1];
+   }
+}
+
+ 
+// returns the min value in the current queue
+   int peek(){
+        return monotonic_queue[top];
+    }
+
+
+// remove the top element.
+int pop(){
+        return monotonic_queue[top--];
+   }
+};
+
+
+/*function that returns an array where the data stored is the index of 
+first smaller element present to the right of item.*/
+vector<int> next_smaller_element_to_right (vector<int> T) {
+        MonotonicQueue a;
+        vector<int> ind;
+        for(int i=T.size()-1;i>=0;i--){
+            int x;
+            if((x=a.push(T[i],i))==-1){
+                ind.push_back(T.size()-1);
+            }else{
+            ind.push_back(x-1);
+            }
+        }
+        reverse(ind.begin(),ind.end());
+        return ind;
+    }
+
+
+/*function that returns an array where the data stored is the index of 
+first smaller element present to the left of the item.*/
+vector<int> next_smaller_element_to_left(vector<int> T) {
+        MonotonicQueue b;
+        vector<int> ind;
+        for(int i=0;i<T.size();i++){
+            int x;
+            if((x=b.push(T[i],i))==-1){
+                ind.push_back(0);
+            }else{
+            ind.push_back(b.push(T[i],i)+1);
+            }
+        }
+        return ind;
+    }
+ 
+
+ //function that returns the solution of the problem.
+ int largestRectangleArea(vector<int>& heights) {
+ vector<int>min_right_ind=next_smaller_element_to_right(heights);
+vector<int>min_left_ind=next_smaller_element_to_left(heights);
+    int max=0;
+    for(int i=0;i<heights.size();i++){
+        int temp;
+          temp=(min_right_ind[i]-min_left_ind[i]+1)*heights[i];
+        if(temp>max){
+            max=temp;
+        }
+    }
+    return max;
+    }
+    
+
+    int main(){
+    vector<int> T{2,1,5,6,2,3};
+    int solution=largestRectangleArea(T);
+    cout<<solution;
+    }
+Output
+
+    10
