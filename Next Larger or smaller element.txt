@@ -1,0 +1,407 @@
+Next Larger/Smaller element.
+In this article, we are going to discuss the various approaches to solve the Next Larger/Smaller element problem. In this problem, we are given an array and our task is to find the next larger/smaller element for each element in the array. If there is no larger/smaller element to the right then return -1.
+
+For example:
+
+Array -> 8 5 2 3 9.
+Next larger element ->  9 9  3  9 -1.
+Next smaller element -> 5 2 -1 -1 -1.
+
+Array -> 18 25 2 13 29.
+Next larger element ->  25 29 13 29 -1.
+Next smaller element -> 2  2  -1 -1 -1.
+Brute Force Approach to solve next larger element.
+In this method, we will be using two nested for loops. The outer loop will traverse the array from left to right and the inner loop will compare the current element with all the elements to its right until it finds an element that is greater than the current element.
+
+Algorithm.
+Step 1: Traverse the array from left to right.
+Step 2: For each element in the array compare the element with all the elements to its right.
+Step 3: If the element present to the right of the current element is greater than the current element print the element and break out of the loop.
+Step 4: If the element is not greater than the current element move to the right until it finds the element greater than the current element or it reaches the end of the array.
+
+Time and Space Complexity.
+The time complexity is O(n2) because we are using two nested for loops.
+The space complexity is O(1) because we are not using any extra array or space.
+Example
+Let us assume that we are given an array with elements 35, 13, 21, 3, 30.
+
+Array -> 35 13 21 3 30.
+
+We will traverse the element from left to right.
+
+The current element is 35.
+Compare the current element with all the elements to the right.
+13 is not greater than 35 so move to the right of the array.
+21 is not greater than 35 so move to the right of the array.
+3 is not greater than 35 so move to the right of the array.
+20 is not greater than 35 so move to the right of the array.
+We have reached the end of the array and there is no element to the right of 35 
+that is greater than 35 so print -1.
+
+The current element is 13
+Compare the current element with all the elements to the right.
+21 is greater than 13 so print 21 and break out of the loop.
+
+The current element is 21
+Compare the current element with all the elements to the right.
+3 is not greater than 21 so move to the right of the array.
+30 is greater than 21 so print 30 and break out of the loop.
+
+The current element is 3
+Compare the current element with all the elements to the right.
+30 is greater than 3 so print 30 and break out of the loop.
+
+The current element is 30
+Compare the current element with all the elements to the right.
+We have reached the end of the array and there is no element to the right of 30
+that is greater than 30 so print -1.
+
+The final output is -1 21 30 30 -1.
+Implementing Brute force.
+C++
+C++
+
+#include <iostream>
+using namespace std;
+
+
+//Solution function
+void NextLargerElement(int a[],int n){
+    for(int i=0;i<n;i++){//Outer loop
+        int next_larger=-1;
+        for (int j = i + 1; j<n;j++)//inner loop
+        {
+            if (a[i] <a[j])
+            {
+                next_larger=a[j];
+                break;
+            }
+        }
+        cout<<next_larger<<" ";
+    }
+}
+
+int main(){
+    int arr[] = {35, 13, 21, 3, 30};
+    int n = sizeof(arr)/sizeof(arr[0]);//total no of elements in array
+    NextLargerElement(arr, n);
+    return 0;
+}
+Output
+-1 21 30 30 -1
+
+Brute Force Approach to solve next smaller element.
+The approach is the same as the approach in the next larger element only difference being that the inner loop will compare the current element with all the elements to its right until it finds an element that is smaller than the current element.
+
+Algorithm.
+Step 1: Traverse the array from left to right.
+Step 2: For each element in the array compare the element with all the elements to its right.
+Step 3: If the element present to the right of the current element is smaller than the current element print the element and break out of the loop.
+Step 4: If the element is not smaller than the current element move to the right until it finds the element smaller than the current element or it reaches the end of the array.
+
+Time and Space Complexity.
+The time complexity is O(n2) because we are using two nested for loops.
+The space complexity is O(1) because we are not using any extra array or space.
+Example
+Let us assume that we are given an array with elements 35, 13, 21, 3, 30.
+
+Array -> 35 13 21 3 30.
+
+We will traverse the element from left to right.
+
+The current element is 35.
+Compare the current element with all the elements to the right.
+13 is smaller than 35 so print 13 and break out of the loop.
+
+The current element is 13
+Compare the current element with all the elements to the right.
+21 is not smaller than 13 so move to the right of the array.
+3 is smaller than 13 so print 3 and break out of the loop.
+
+The current element is 21
+Compare the current element with all the elements to the right.
+3 is smaller than 21 so print 3 and break out of the loop.
+
+The current element is 3
+Compare the current element with all the elements to the right.
+30 is not smaller than 3 so move to the right of the array.
+We have reached the end of the array and there is no element to the right of 3
+that is smaller than 3 so print -1.
+
+The current element is 30
+Compare the current element with all the elements to the right.
+We have reached the end of the array and there is no element to the right of 30
+that is smaller than 30 so print -1.
+
+The final output is 13 3 3 -1 -1.
+Implementing Brute force.
+C++
+C++
+
+#include <iostream>
+using namespace std;
+
+
+//Solution function
+void NextSmallerElement(int a[],int n){
+    for(int i=0;i<n;i++){//Outer loop
+        int next_smaller=-1;
+        for (int j = i + 1; j<n;j++)//inner loop
+        {
+            if (a[i] >a[j])
+            {
+                next_smaller=a[j];
+                break;
+            }
+        }
+        cout<<next_smaller<<" ";
+    }
+}
+
+int main(){
+    int arr[] = {35, 13, 21, 3, 30};
+    int n = sizeof(arr)/sizeof(arr[0]);//total no of elements in array
+    NextSmallerElement(arr, n);
+    return 0;
+}
+Output
+13 3 3 -1 -1
+
+Monotonic Queue approach to solve next larger element
+In this approach, we are going to use non-increasing monotonic queue to solve this problem.In a non-increasing monotonic queue if the item to be inserted is greater than the top element then the top element is removed and this procedure is repeated until the monotonic queue becomes empty or the top element is greater than the item to be inserted.
+
+Algorithm.
+Step 1: Traverse the array from last.
+Step 2: If the element at the top of the monotonic queue is not greater than the current element then pop the top element.
+Step 3: Repeat step 2 until the monotonic queue becomes empty or the top element is greater than the current element.
+Step 4: If the monotonic queue is not empty push the top element to vector
+Step 5: If the monotonic queue is empty push -1 to vector.
+Step 6: Push the current element into the monotonic queue.
+Step 7: Reverse the vector.
+Step 8: Return the vector.
+
+Time Complexity and Space Complexity.
+The time complexity of monotonic queue is O(n) therefore this approach will also take O(n) time.
+The space Complexity of the monotonic queue is O(n) because we will store at most n elements in the monotonic queue.
+Example
+
+Let us consider that we are given an array that contains 35, 13, 21, 3, 30 as its elements.
+
+Array -> 35 13 21 3 30.
+
+Basically what we need to do is to find the first element which is
+greater than the current element to the right of the current element.
+
+We will loop the array from last to first and insert the elements into the monotonic queue.
+
+Insert 30 into the monotonic queue
+monotonic queue -> 30
+Since there is no element present before 30 
+therefore there is no element to the right of 30 that is greater than 30.
+
+Insert 3 into the monotonic queue.
+monotonic queue -> 30 3
+3 is inserted into the monotonic queue.
+Since 30 is present before 3 therefore 30 is the first element to the right of 3 that is greater than 3.
+
+Insert 21 into the monotonic queue.
+monotonic queue -> 30 21
+Since 21 is greater than 3, therefore 3 is removed from the monotonic
+queue and 21 is inserted.
+Since 30 is present before 21 therefore 30 is the first element to the right of 21 that is greater than 21.
+
+Insert 13 into the monotonic queue.
+monotonic queue -> 30 21 13
+13 is inserted into the monotonic queue.
+Since 21 is present before 13 therefore 21 is the first element to the right of 13 that is greater than 13.
+
+Insert 35 into the monotonic queue.
+monotonic queue -> 35.
+Since 35 is greater than 13, 21, and 30, therefore 13, 21, and 30 is removed from the monotonic
+queue and 35 is inserted.
+Since there is no element present before 35 
+therefore there is no element to the right of 35 that is greater than 35.
+
+The final output is -1 21 30 30 -1.
+Implementing Monotonic Queue to solve next larger element.
+C++
+C++
+
+#include<iostream>
+#include<vector>
+#include<algorithm>
+using namespace std;
+
+
+class MonotonicQueue {
+
+long long monotonic_queue[10000];//array to store data.
+long long index[10000];//stores the next larger element in the given array
+int top=-1;//pointer which points to top of the array.
+
+
+public:
+/* add element n to the end of the line and returns the value of next larger element in the array.*/
+long long push(long long n,int ind){
+    while(top!=-1 && n>=monotonic_queue[top]){
+           pop();
+      }
+      monotonic_queue[++top]=n;
+      index[top]=n;
+    if(top==0){  // if element was empty before inserting the current item.
+         return -1;
+     }else{
+         return index[top-1];
+     }
+   }
+
+
+// remove the top element.
+long long pop(){
+        return monotonic_queue[top--];
+   }
+};
+
+
+//solution function.
+void nextLargerElement(vector<long long> arr, int n){
+        MonotonicQueue a;
+        vector<long long> ind;
+        for(int i=n-1;i>=0;i--){
+            ind.push_back(a.push(arr[i],i));
+        }
+        reverse(ind.begin(),ind.end());
+
+       for(auto i:ind){
+            cout<<i<<" ";
+        }
+    }
+
+
+int main(){
+    vector<long long> arr{35, 13, 21, 3, 30};
+    int n = arr.size();//total no of elements in array
+    nextLargerElement(arr, n);
+    return 0;
+}
+Output
+-1 21 30 30 -1
+
+Monotonic Queue approach to solve next smaller element
+In this approach, we are going to use non-decreasing monotonic queue to solve this problem.In a non-decreasing monotonic queue if the item to be inserted is smaller than the top element then the top element is removed and this procedure is repeated until the monotonic queue becomes empty or the top element is smaller than the item to be inserted.
+
+Algorithm.
+Step 1: Traverse the array from last.
+Step 2: If the element at the top of the monotonic queue is not smaller than the current element then pop the top element.
+Step 3: Repeat step 2 until the monotonic queue becomes empty or the top element is smaller than the current element.
+Step 4: If the monotonic queue is not empty push the top element to vector
+Step 5: If the monotonic queue is empty push -1 to vector.
+Step 6: Push the current element into the monotonic queue.
+Step 7: Reverse the vector.
+Step 8: Return the vector.
+
+Time Complexity and Space Complexity.
+The time complexity of monotonic queue is O(n) therefore this approach will also take O(n) time.
+The space Complexity of the monotonic queue is O(n) because we will store at most n elements in the monotonic queue.
+Example
+
+Let us consider that we are given an array that contains 35, 13, 21, 3, 30 as its elements.
+
+Array -> 35 13 21 3 30.
+
+Basically what we need to do is to find the first element which is
+smaller than the current element to the right of the current element.
+
+We will loop the array from last to first and insert the elements into the monotonic queue.
+
+Insert 30 into the monotonic queue
+monotonic queue -> 30
+Since there is no element present before 30 
+therefore there is no element to the right of 30 that is smaller than 30.
+
+Insert 3 into the monotonic queue.
+monotonic queue -> 3
+Since 3 is smaller than 30, therefore 30 is removed from the monotonic
+queue and 3 is inserted.
+Since there is no element present before 3 
+therefore there is no element to the right of 3 that is smaller than 3.
+
+Insert 21 into the monotonic queue.
+monotonic queue -> 3 21
+21 is inserted into the monotonic queue.
+Since 3 is present before 21 therefore 3 is the first element to the right of 21 that is smaller than 21.
+
+Insert 13 into the monotonic queue.
+monotonic queue -> 3 13
+Since 13 is smaller than 21, therefore 21 is removed and 13 is inserted.
+Since 3 is present before 13 therefore 3 is the first element to the right of 13 that is smaller than 13.
+
+Insert 35 into the monotonic queue.
+monotonic queue -> 3 13 35.
+35 is inserted into the monotonic queue.
+Since 13 is present before 35 therefore 13 is the first element to the right of 35 that is smaller than 35.
+
+The final output is 13 3 3 -1 -1.
+Implementing Monotonic Queue to solve next smaller element.
+C++
+C++
+
+#include<iostream>
+#include<vector>
+#include<algorithm>
+using namespace std;
+
+
+class MonotonicQueue {
+
+long long monotonic_queue[10000];//array to store data.
+long long index[10000];//stores the next smaller element in the given array
+int top=-1;//pointer which points to top of the array.
+
+
+public:
+/* add element n to the end of the line and returns the value of next smaller element in the array.*/
+long long push(long long n,int ind){
+    while(top!=-1 && n<=monotonic_queue[top]){
+           pop();
+      }
+      monotonic_queue[++top]=n;
+      index[top]=n;
+    if(top==0){  // if element was empty before inserting the current item.
+         return -1;
+     }else{
+         return index[top-1];
+     }
+   }
+
+
+// remove the top element.
+long long pop(){
+        return monotonic_queue[top--];
+   }
+};
+
+
+//solution function.
+void nextSmallerElement(vector<long long> arr, int n){
+        MonotonicQueue a;
+        vector<long long> ind;
+        for(int i=n-1;i>=0;i--){
+            ind.push_back(a.push(arr[i],i));
+        }
+        reverse(ind.begin(),ind.end());
+
+       for(auto i:ind){
+            cout<<i<<" ";
+        }
+    }
+
+
+int main(){
+    vector<long long> arr{35, 13, 21, 3, 30};
+    int n = arr.size();//total no of elements in array
+    nextSmallerElement(arr, n);
+    return 0;
+}
+Output
+13 3 3 -1 -1
